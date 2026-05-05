@@ -33,7 +33,7 @@ pipeline {
         stage('Unit Test') {
             steps {
                 echo '=== Stage 3: Running Unit Tests ==='
-                sh 'mvn test -B'
+                sh 'mvn test surefire-report:report -B'
             }
             post {
                 always {
