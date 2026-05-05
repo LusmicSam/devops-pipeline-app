@@ -98,7 +98,7 @@ pipeline {
                 echo '=== Stage 8: Health Check ==='
                 sh """
                     sleep 15
-                    curl -f http://localhost:9090/actuator/health || exit 1
+                    curl -f http://host.docker.internal:9090/actuator/health || exit 1
                     echo "Deployment verified successfully!"
                 """
             }
