@@ -111,12 +111,6 @@ pipeline {
         }
         failure {
             echo "Pipeline FAILED. Check the logs above."
-            // emailext to: 'your-email@example.com', subject: "Build Failed: ${JOB_NAME}", body: "Build #${BUILD_NUMBER} failed."
-        }
-        always {
-            node {
-                sh 'docker logout || true'
-            }
         }
     }
 }
