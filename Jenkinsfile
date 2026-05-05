@@ -39,8 +39,8 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/*.xml'
                     publishHTML([
-                        reportDir:   'target/site',
-                        reportFiles: 'surefire-report.html',
+                        reportDir:   'target/reports',
+                        reportFiles: 'surefire.html',
                         reportName:  'Test Report'
                     ])
                 }
