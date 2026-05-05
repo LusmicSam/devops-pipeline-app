@@ -85,7 +85,7 @@ pipeline {
                     docker rm   ${APP_NAME} || true
                     docker run -d \
                         --name ${APP_NAME} \
-                        -p 8080:8080 \
+                        -p 9090:8080 \
                         --restart unless-stopped \
                         ${DOCKER_IMAGE}:${IMAGE_TAG}
                     echo "Container started: \$(docker ps -f name=${APP_NAME} --format '{{.Status}}')"
@@ -98,7 +98,7 @@ pipeline {
                 echo '=== Stage 8: Health Check ==='
                 sh """
                     sleep 15
-                    curl -f http://localhost:8080/health || exit 1
+                    curl -f http://localhost:9090/actuator/health || exit 1
                     echo "Deployment verified successfully!"
                 """
             }
