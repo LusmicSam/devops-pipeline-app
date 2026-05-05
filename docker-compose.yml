@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  # ─── Main Application ───────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: devops-pipeline-app:latest
+    container_name: devops-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - devops-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  # ─── Jenkins CI/CD Server ───────────────────
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    container_name: devops-jenkins
+    ports:
+      - "8082:8080"   # Jenkins UI
+      - "50000:50000" # Jenkins agent port
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # Docker-in-Docker
+    networks:
+      - devops-net
+    restart: unless-stopped
+
+networks:
+  devops-net:
+    driver: bridge
+
+volumes:
+  jenkins_home:
+    driver: local
