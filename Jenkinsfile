@@ -85,10 +85,10 @@ pipeline {
         stage('Docker Push') {
             steps {
                 echo '=== Stage 6: Pushing to Docker Hub ==='
+                echo 'Skipping actual Docker push for local demo to avoid credential setup.'
                 sh """
-                    echo ${DOCKERHUB_CREDS_PSW} | docker login -u ${DOCKERHUB_CREDS_USR} --password-stdin
-                    docker push ${DOCKER_IMAGE}:${IMAGE_TAG}
-                    docker push ${DOCKER_IMAGE}:latest
+                    echo "Mock: docker push ${DOCKER_IMAGE}:${IMAGE_TAG}"
+                    echo "Mock: docker push ${DOCKER_IMAGE}:latest"
                 """
             }
         }
