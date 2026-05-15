@@ -36,11 +36,6 @@ pipeline {
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
-                    publishHTML([
-                        reportDir:   'target/reports',
-                        reportFiles: 'surefire.html',
-                        reportName:  'Test Report'
-                    ])
                 }
             }
         }
