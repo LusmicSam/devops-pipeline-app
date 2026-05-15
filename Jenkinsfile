@@ -4,7 +4,6 @@ pipeline {
     environment {
         APP_NAME        = 'devops-pipeline-app'
         IMAGE_TAG       = "1.0.${BUILD_NUMBER}"
-        DOCKERHUB_CREDS = credentials('dockerhub-credentials')  // Set this in Jenkins
         DOCKER_IMAGE    = "lusmicsam/${APP_NAME}"
     }
 
