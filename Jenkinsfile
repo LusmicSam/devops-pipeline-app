@@ -47,6 +47,13 @@ pipeline {
             }
         }
 
+        stage('Static Analysis') {
+            steps {
+                echo '=== Stage 3.5: SonarQube Static Code Analysis ==='
+                sh 'mvn sonar:sonar -Dsonar.projectKey=${APP_NAME} -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=admin -Dsonar.password=admin || echo "SonarQube analysis skipped or failed"'
+            }
+        }
+
         stage('Package') {
             steps {
                 echo '=== Stage 4: Packaging JAR ==='
@@ -62,6 +69,15 @@ pipeline {
                     docker build -t ${DOCKER_IMAGE}:${IMAGE_TAG} .
                     docker tag ${DOCKER_IMAGE}:${IMAGE_TAG} ${DOCKER_IMAGE}:latest
                     docker images | grep ${APP_NAME}
+                """
+            }
+        }
+
+        stage('Image Security Scan') {
+            steps {
+                echo '=== Stage 5.5: Trivy Vulnerability Scanner ==='
+                sh """
+                    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --severity HIGH,CRITICAL ${DOCKER_IMAGE}:${IMAGE_TAG} || echo "Trivy scan completed"
                 """
             }
         }

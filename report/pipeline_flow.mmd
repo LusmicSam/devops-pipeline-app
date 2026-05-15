@@ -1,0 +1,8 @@
+graph TD
+    A[Developer] -->|Git Push| B(GitHub Repository)
+    B -->|Webhook| C{Jenkins CI Server}
+    C -->|Build & Test| D[Maven / Surefire]
+    C -->|Containerize| E[Docker Engine]
+    E -->|Push Image| F[(Docker Hub)]
+    C -->|Deploy| G[Docker Compose Environment]
+    G -->|Pull Image| F

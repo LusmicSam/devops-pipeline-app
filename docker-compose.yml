@@ -22,6 +22,44 @@ services:
       retries: 3
       start_period: 20s
 
+  # ─── Monitoring & Security ───────────────────
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: devops-prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - devops-net
+    restart: unless-stopped
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: devops-sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_FORCEAUTHENTICATION=false
+    networks:
+      - devops-net
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: devops-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - devops-net
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
   # ─── Jenkins CI/CD Server ───────────────────
   jenkins:
     image: jenkins/jenkins:lts-jdk17

@@ -1,5 +1,18 @@
 # INT332 DevOps Pipeline Project
-## Complete DevOps Pipeline: Docker + Maven + GitHub Actions + Jenkins
+## Enterprise DevSecOps Pipeline: Docker + Kubernetes + Terraform + Jenkins + Prometheus + Grafana + SonarQube
+
+---
+
+## 🛠️ Tech Stack & Tools Used
+* **App:** Java Spring Boot
+* **Build:** Maven
+* **CI/CD:** Jenkins & GitHub Actions
+* **Containerization:** Docker & Docker Compose
+* **Orchestration:** Kubernetes (k8s manifests)
+* **Infrastructure as Code:** Terraform (AWS provisioning)
+* **Static Analysis:** SonarQube
+* **Vulnerability Scanning:** Trivy
+* **Observability:** Prometheus & Grafana
 
 ---
 
