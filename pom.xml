@@ -55,14 +55,12 @@
     </dependencies>
 
     <build>
+        <finalName>devops-pipeline-app</finalName>
         <plugins>
             <!-- Spring Boot Maven Plugin (creates fat/uber JAR) -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <finalName>devops-pipeline-app</finalName>
-                </configuration>
             </plugin>
 
             <!-- Maven Surefire Plugin (unit test reports) -->
